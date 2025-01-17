@@ -5,12 +5,15 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../Utils/custombuttton.dart';
 import '../Constants/textstyle.dart';
+import '../Utils/sendmail.dart';
 
 class ContactPage extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   ContactPage({super.key});
-
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController messageController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -120,22 +123,36 @@ class ContactPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 100),
+                  const SizedBox(height: 150),
                   // Form Fields
                   Form(
                     key: _formKey,
                     child: Column(
                       children: [
-                        _buildTextField("Name", Icons.person, false, theme),
+                        _buildTextField(
+                            "Name", Icons.person, false, theme, nameController),
                         const SizedBox(height: 20),
-                        _buildTextField("Email", Icons.email, true, theme),
+                        _buildTextField(
+                            "Email", Icons.email, true, theme, emailController),
                         const SizedBox(height: 20),
                         _buildTextField("Message", Icons.message, false, theme,
+                            messageController,
                             isMessage: true),
                         const SizedBox(height: 30),
                         MyButton(
                           label: "SUBMIT",
-                          onPressed: () {},
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              sendFormEmail(
+                                nameController.text,
+                                emailController.text,
+                                messageController.text,
+                              );
+                              nameController.clear();
+                              emailController.clear();
+                              messageController.clear();
+                            }
+                          },
                           shadowColor:
                               theme.colorScheme.secondary.withOpacity(.5),
                         ),
@@ -198,13 +215,14 @@ class ContactPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField(
-      String label, IconData icon, bool isEmail, ThemeData theme,
+  Widget _buildTextField(String label, IconData icon, bool isEmail,
+      ThemeData theme, TextEditingController controller,
       {bool isMessage = false}) {
     return SizedBox(
       width: 400,
       child: TextFormField(
-        maxLines: isMessage ? 5 : 1,
+        controller: controller,
+        maxLines: null,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return "$label is required";

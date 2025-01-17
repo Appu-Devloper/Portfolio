@@ -1,11 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'Constants/colors.dart';
 import 'UIScreens/fallback.dart';
 import 'UIScreens/navigationbar.dart';
 
-void main() => runApp(const MyPortfolio());
+void main()async { 
+   await dotenv.load(fileName: ".env");
+  runApp(
+
+  const MyPortfolio());
+}
 
 class MyPortfolio extends StatefulWidget {
   const MyPortfolio({super.key});
