@@ -38,6 +38,7 @@ class _DonutRevealWidgetState extends State<DonutRevealWidget>
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
+        if(mounted)
         setState(() {
           _showImage = true;
         });

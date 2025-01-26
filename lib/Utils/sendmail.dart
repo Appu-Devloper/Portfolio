@@ -3,21 +3,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-final apiKey = const String.fromEnvironment('SENDINBLUE_API_KEY', defaultValue: '');
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future<void> sendFormEmail(String name, String email, String message) async {
+  
+  final db = await FirebaseFirestore.instance;
+  String documentId = "ZBw2YCteUFuBQBZmchuq";
+
+  final DocumentSnapshot<Map<String, dynamic>> snapshot =
+      await db.collection('Name').doc(documentId).get();
+
+  Map<String, dynamic>? data = snapshot.data();
+
   final url = 'https://api.sendinblue.com/v3/smtp/email';
-print("apiKey: $apiKey");  
+String keyId = data!["key_id"];
   final headers = {
     'Content-Type': 'application/json',
-    'api-key': apiKey.toString(),
+    'api-key': keyId.toString(),
   };
 
   final body = jsonEncode({
-    'sender': {'email': email},  // Change to your sender email
+    'sender': {'email': email}, // Change to your sender email
     'to': [
       {'email': 'appua0126@gmail.com'} // Recipient Email
     ],
@@ -34,7 +40,8 @@ print("apiKey: $apiKey");
   try {
     final prefs = await SharedPreferences.getInstance();
     String? lastSentDate = prefs.getString('last_sent_date');
-    String today = DateTime.now().toIso8601String().split('T')[0]; // Format: YYYY-MM-DD
+    String today =
+        DateTime.now().toIso8601String().split('T')[0]; // Format: YYYY-MM-DD
 
     if (lastSentDate == today) {
       Fluttertoast.showToast(
@@ -48,8 +55,9 @@ print("apiKey: $apiKey");
       return;
     }
 
-    final response = await http.post(Uri.parse(url), headers: headers, body: body);
-
+    final response =
+        await http.post(Uri.parse(url), headers: headers, body: body);
+print(response.body);
     if (response.statusCode == 201) {
       await prefs.setString('last_sent_date', today); // Save the sent date
       Fluttertoast.showToast(

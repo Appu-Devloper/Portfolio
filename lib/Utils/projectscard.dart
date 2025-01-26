@@ -119,6 +119,7 @@ class _ExpandableCardState extends State<ExpandableCard> {
               if (isSmallScreen)
                 GestureDetector(
                   onTap: () {
+                    if(mounted)
                     setState(() {
                       isExpanded = !isExpanded;
                     });

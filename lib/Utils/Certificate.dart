@@ -52,8 +52,8 @@ class _CertificateCardState extends State<CertificateCard> {
     final hoverOverlayColor = primaryColor.withOpacity(0.6);
 
     return MouseRegion(
-      onEnter: (_) => setState(() => isHovered = true),
-      onExit: (_) => setState(() => isHovered = false),
+      onEnter: (_){if(mounted) setState(() => isHovered = true);},
+      onExit: (_){if(mounted) setState(() => isHovered = false);},
       child: Stack(
         children: [
           Card(

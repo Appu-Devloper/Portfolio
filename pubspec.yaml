@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.0 <4.0.0'
+  sdk: '>=3.5.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -38,13 +38,14 @@ dependencies:
   pretty_animated_buttons: ^0.0.2
   google_fonts: ^6.2.1
   font_awesome_flutter: ^10.8.0
-  syncfusion_flutter_charts: ^23.1.44
+  syncfusion_flutter_charts: ^28.1.41
   url_launcher: ^6.3.1
   open_file: ^3.5.10
   flutter_launcher_icons: ^0.14.2
-  shared_preferences: ^2.3.3
+  shared_preferences: ^2.4.0
   fluttertoast: ^8.2.10
-  flutter_dotenv: ^5.2.1
+  firebase_core: ^3.10.1
+  cloud_firestore: ^5.6.2
 
 dev_dependencies:
 flutter_launcher_icons:

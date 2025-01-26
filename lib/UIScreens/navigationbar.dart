@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project_3d/UIScreens/home.dart';
 import '../Constants/data.dart';
@@ -32,6 +33,7 @@ class _ResponsiveHomePageState extends State<ResponsiveHomePage> {
         curve: Curves.decelerate,
         alignment: 0.1,
       );
+      if(mounted)
       setState(() {
         selectedSection = sectionName;
         _isMenuOpen = false;
@@ -46,6 +48,7 @@ class _ResponsiveHomePageState extends State<ResponsiveHomePage> {
 
     // Close the menu if the screen size changes to desktop
     if (!isMobile && _isMenuOpen) {
+      if(mounted)
       setState(() {
         _isMenuOpen = false;
       });
@@ -59,6 +62,7 @@ class _ResponsiveHomePageState extends State<ResponsiveHomePage> {
 // Check if theme is null or not loaded
 
     return Scaffold(
+         backgroundColor:  theme.colorScheme.background,
       body: SizedBox.expand(
         child: Stack(
           children: [
@@ -141,6 +145,7 @@ class _ResponsiveHomePageState extends State<ResponsiveHomePage> {
                               color: theme.colorScheme.primary,
                             ),
                             onPressed: () {
+                              if(mounted)
                               setState(() {
                                 _isMenuOpen = !_isMenuOpen;
                               });
@@ -187,6 +192,7 @@ class _ResponsiveHomePageState extends State<ResponsiveHomePage> {
                           color: theme.colorScheme.primary,
                         ),
                         onPressed: () {
+                          if(mounted)
                           setState(() {
                             _isMenuOpen = !_isMenuOpen;
                           });

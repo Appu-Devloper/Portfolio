@@ -26,6 +26,7 @@ class _LoadingPageState extends State<LoadingPage> {
 
     // Rotate through quotes every 3 seconds
     Timer.periodic(const Duration(seconds: 3), (timer) {
+      if(mounted)
       setState(() {
         currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
       });

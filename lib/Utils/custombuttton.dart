@@ -27,8 +27,8 @@ class _MyButtonState extends State<MyButton> {
     return GestureDetector(
       onTap: widget.onPressed,
       child: MouseRegion(
-        onEnter: (_) => setState(() => _isHovered = true),
-        onExit: (_) => setState(() => _isHovered = false),
+       onEnter: (_){if(mounted) setState(() => _isHovered = true);},
+      onExit: (_){if(mounted) setState(() => _isHovered = false);},
         child: Stack(
           children: [
             AnimatedPositioned(

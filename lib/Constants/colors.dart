@@ -1,6 +1,4 @@
-// ignore_for_file: unused_element, deprecated_member_use
-
-import'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import 'textstyle.dart';
 Color BgColor=const Color.fromRGBO(237,	232	,245, 1);

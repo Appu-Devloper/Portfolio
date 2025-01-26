@@ -1,13 +1,25 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'Constants/colors.dart';
 import 'UIScreens/fallback.dart';
 import 'UIScreens/navigationbar.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main()async { 
-   await dotenv.load(fileName: ".env");
+
+
+Future<void> main() async {
+  
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FirebaseFirestore.instance.settings = const Settings(
+    persistenceEnabled: true,
+  );
+
+
   runApp(
 
   const MyPortfolio());
@@ -29,6 +41,7 @@ class _MyPortfolioState extends State<MyPortfolio> {
 
     // Hide the GIF after 5 seconds
     Timer(const Duration(seconds: 5), () {
+      if(mounted)
       setState(() {
         showGif = false;
       });
@@ -48,6 +61,7 @@ class _MyPortfolioState extends State<MyPortfolio> {
             ? LoadingPage()
             : ResponsiveHomePage(
                 onToggleTheme: () {
+                  if(mounted)
                   setState(() {
                     isDarkTheme = !isDarkTheme;
                   });
