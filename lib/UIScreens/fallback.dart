@@ -49,7 +49,7 @@ class _LoadingPageState extends State<LoadingPage> {
                 width: 200,
                 height: 200,
                 child: Image.asset(
-                  'creative.gif', // Replace with your actual GIF path
+                  'assets/creative.gif', // Replace with your actual GIF path
                   fit: BoxFit.contain,
                 ),
               ),

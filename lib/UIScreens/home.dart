@@ -52,7 +52,7 @@ class HomeSection extends StatelessWidget {
               ),
               if (screenWidth >= 700)
                 DonutRevealWidget(
-                  imagePath: 'avatar.png',
+                  imagePath: 'assets/avatar.png',
                   size: screenWidth >= 900
                       ? 300
                       : screenWidth >= 800
